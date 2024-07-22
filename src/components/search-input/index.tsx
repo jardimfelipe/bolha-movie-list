@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import SearchIcon from "../icons/search";
 import styles from "./styles.module.css";
 
+import { MoviesContext } from "../../modules/movies/context";
+import { Movie, MoviesContextType } from "../../modules/movies/types";
+
+import popular from "../../data/popular.json";
+
 export default function SearchInput() {
   const [searchValue, setSearchValue] = useState("");
-  const searchParams = new URLSearchParams(window.location.search);
+  const { setMovies } = useContext(MoviesContext) as MoviesContextType;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -13,8 +18,10 @@ export default function SearchInput() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    searchParams.set("search", searchValue);
-    window.location.search = searchParams.toString();
+    const movies = popular.filter((movie: Movie) =>
+      movie.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setMovies(movies);
   };
   return (
     <form onSubmit={handleSubmit}>
