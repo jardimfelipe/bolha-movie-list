@@ -1,11 +1,15 @@
 import Header from "./components/header";
+import MovieList from "./components/movie-list";
 
 import "./styles.css";
 
 export default function App() {
   return (
-    <main className="App">
+    <div className="App">
       <Header />
-    </main>
+      <main>
+        <MovieList />
+      </main>
+    </div>
   );
 }

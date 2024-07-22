@@ -6,11 +6,9 @@ import styles from "./styles.module.css";
 import { MoviesContext } from "../../modules/movies/context";
 import { Movie, MoviesContextType } from "../../modules/movies/types";
 
-import popular from "../../data/popular.json";
-
 export default function SearchInput() {
   const [searchValue, setSearchValue] = useState("");
-  const { setMovies } = useContext(MoviesContext) as MoviesContextType;
+  const { movies, setMovies } = useContext(MoviesContext) as MoviesContextType;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -18,10 +16,10 @@ export default function SearchInput() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const movies = popular.filter((movie: Movie) =>
+    const filteredMovies = movies.filter((movie: Movie) =>
       movie.title.toLowerCase().includes(searchValue.toLowerCase())
     );
-    setMovies(movies);
+    setMovies(filteredMovies);
   };
   return (
     <form onSubmit={handleSubmit}>

@@ -1,6 +1,8 @@
 export type MoviesContextType = {
   movies: Movie[];
+  genres: Genres[];
   setMovies: (movies: Movie[]) => void;
+  setGenres: (genres: Genres[]) => void;
 };
 
 export type Movie = {
@@ -19,3 +21,8 @@ export type Movie = {
   vote_average: number;
   vote_count: number;
 };
+
+export type Genres = {
+  id: number;
+  name: string;
+}
