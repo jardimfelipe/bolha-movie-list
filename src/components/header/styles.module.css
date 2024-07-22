@@ -1,0 +1,22 @@
+.header {
+    background-color: var(--bg-color-light);
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    max-width: 1290px;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.title > span {
+    color: var(--primary-color);
+    font-size: 0.8rem;
+}
