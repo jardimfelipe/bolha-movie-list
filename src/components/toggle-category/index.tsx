@@ -1,10 +1,5 @@
 import { useContext } from "react";
-import { useToggleCategory } from "../../modules/movies/hooks";
-import {
-  Category,
-  categoryLabels,
-  MoviesContextType,
-} from "../../modules/movies/types";
+import { Category, categoryLabels } from "../../modules/movies/types";
 
 import styles from "./styles.module.css";
 import { MoviesContext } from "../../modules/movies/context";
@@ -17,17 +12,14 @@ const categoryOptions: Category[] = [
 ];
 
 export default function ToggleCategory() {
-  const { toggleCategory } = useToggleCategory();
-  const { category: selectedCategory } = useContext(
-    MoviesContext
-  ) as MoviesContextType;
+  const { category: selectedCategory, dispatch } = useContext(MoviesContext);
 
   const handleChange = (selectedCategory: Category) => {
     if (!selectedCategory) {
-      toggleCategory("top_rated");
+      dispatch({ type: "SET_CATEGORY", payload: "top_rated" });
       return;
     }
-    toggleCategory(selectedCategory as Category);
+    dispatch({ type: "SET_CATEGORY", payload: selectedCategory });
   };
   return (
     <div className={styles.container}>

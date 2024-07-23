@@ -1,7 +1,8 @@
+import { useContext } from "react";
 import genres from "../../data/genres.json";
-import { useFilterByGenre } from "../../modules/movies/hooks";
 
 import styles from "./styles.module.css";
+import { MoviesContext } from "../../modules/movies/context";
 
 const all = {
   id: 0,
@@ -9,16 +10,17 @@ const all = {
 };
 
 export default function GenderSelect() {
-  const { filter } = useFilterByGenre();
+  const { dispatch } = useContext(MoviesContext);
+
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedGenre = genres.find(
       (genre) => genre.id === Number(e.target.value)
     );
     if (!selectedGenre) {
-      filter(all);
+      dispatch({ type: "SET_GENRE", payload: all });
       return;
     }
-    filter(selectedGenre);
+    dispatch({ type: "SET_GENRE", payload: selectedGenre });
   };
   return (
     <div className={styles.container}>

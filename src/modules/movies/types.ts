@@ -1,13 +1,13 @@
-export type MoviesContextType = {
+export type MoviesState = {
   movies: Movie[];
+  category: Category;
   genre: Genre | null;
-  category: Category; 
   search: string;
-  setMovies: (movies: Movie[]) => void;
-  setGenre: (genre: Genre) => void;
-  setCategory: (category: Category) => void;
-  setSearch: (search: string) => void;
 };
+export type MoviesAction =
+  | { type: "SET_CATEGORY"; payload: Category }
+  | { type: "SET_GENRE"; payload: Genre | null }
+  | { type: "SET_SEARCH"; payload: string };
 
 export type Movie = {
   adult: boolean;
@@ -29,7 +29,7 @@ export type Movie = {
 export type Genre = {
   id: number;
   name: string;
-}
+};
 
 export type Category = "top_rated" | "upcoming" | "now_playing" | "popular";
 

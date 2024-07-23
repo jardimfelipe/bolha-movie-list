@@ -1,31 +1,22 @@
-import { createContext, useState } from "react";
+import { createContext, useReducer } from "react";
 
-import { Category, Genre, Movie, MoviesContextType } from "./types";
+import moviesReducer, { initialState } from "./reducer";
+import { MoviesAction, MoviesState } from "./types";
 
-import topRated from "../../data/top-rated.json";
-
-export const MoviesContext = createContext<MoviesContextType | null>(null);
+export const MoviesContext = createContext<
+  MoviesState & { dispatch: (action: MoviesAction) => void }
+>({
+  ...initialState,
+  dispatch: () => {},
+});
 
 const MoviesContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [movies, setMovies] = useState<Movie[]>(topRated);
-  const [genre, setGenre] = useState<Genre | null>(null);
-  const [category, setCategory] = useState<Category>("top_rated");
-  const [search, setSearch] = useState<string>("");
+  const [state, dispatch] = useReducer(moviesReducer, initialState);
+
+  const value = { ...state, dispatch };
+
   return (
-    <MoviesContext.Provider
-      value={{
-        movies,
-        genre,
-        category,
-        search,
-        setSearch,
-        setMovies,
-        setGenre,
-        setCategory,
-      }}
-    >
-      {children}
-    </MoviesContext.Provider>
+    <MoviesContext.Provider value={value}>{children}</MoviesContext.Provider>
   );
 };
 

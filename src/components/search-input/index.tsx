@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import SearchIcon from "../icons/search";
 import styles from "./styles.module.css";
 
-import { useSearchMovies } from "../../modules/movies/hooks";
+import { MoviesContext } from "../../modules/movies/context";
 
 export default function SearchInput() {
   const [searchValue, setSearchValue] = useState("");
-  const { filter } = useSearchMovies();
+  const { dispatch } = useContext(MoviesContext);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -15,7 +15,7 @@ export default function SearchInput() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    filter(searchValue);
+    dispatch({ type: "SET_SEARCH", payload: searchValue });
   };
   return (
     <form onSubmit={handleSubmit}>
