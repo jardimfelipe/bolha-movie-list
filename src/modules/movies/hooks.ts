@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { Movie, MoviesContextType } from "./types";
+import { Genre, Movie, MoviesContextType } from "./types";
 import { MoviesContext } from "./context";
 
 import popular from "../../data/popular.json";
@@ -27,6 +27,15 @@ export const useSearchMovies = () => {
   return {filter}
 };
 
-export const useFilterMovies = () => {
+export const useFilterByGenre = () => {
+    const { category, setGenre, setMovies} = useContext(MoviesContext) as MoviesContextType;
+  function filter(selectedGenre: Genre) {
+    setGenre(selectedGenre);
+    const filtered = selectedGenre.id === 0 ? movies[category] : movies[category].filter((movie: Movie) =>
+      movie.genre_ids.includes(selectedGenre.id)
+    );
+    setMovies(filtered);
+  }
 
+  return {filter}
 }
