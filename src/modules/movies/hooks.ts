@@ -3,12 +3,22 @@ import { useContext } from "react";
 import { Movie, MoviesContextType } from "./types";
 import { MoviesContext } from "./context";
 
-import movies from "../../data/popular.json";
+import popular from "../../data/popular.json";
+import topRated from "../../data/top-rated.json";
+import upcoming from "../../data/upcoming.json";
+import nowPlaying from "../../data/now-playing.json";
 
-export const useFilterMovies = () => {
-    const {setMovies} = useContext(MoviesContext) as MoviesContextType;
+const movies = {
+    top_rated: topRated,
+    upcoming: upcoming,
+    now_playing: nowPlaying,
+    popular: popular
+}
+
+export const useSearchMovies = () => {
+    const {category, setMovies} = useContext(MoviesContext) as MoviesContextType;
   function filter(searchValue: string) {
-    const filtered = movies.filter((movie: Movie) =>
+    const filtered = movies[category].filter((movie: Movie) =>
       movie.title.toLowerCase().includes(searchValue.toLowerCase())
     );
     setMovies(filtered);
@@ -16,3 +26,7 @@ export const useFilterMovies = () => {
 
   return {filter}
 };
+
+export const useFilterMovies = () => {
+
+}

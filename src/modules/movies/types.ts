@@ -1,8 +1,10 @@
 export type MoviesContextType = {
   movies: Movie[];
-  genres: Genres[];
+  genre: Genre | null;
+  category: Category; 
   setMovies: (movies: Movie[]) => void;
-  setGenres: (genres: Genres[]) => void;
+  setGenre: (genre: Genre) => void;
+  setCategory: (category: Category) => void;
 };
 
 export type Movie = {
@@ -22,7 +24,9 @@ export type Movie = {
   vote_count: number;
 };
 
-export type Genres = {
+export type Genre = {
   id: number;
   name: string;
 }
+
+export type Category = "top_rated" | "upcoming" | "now_playing" | "popular";

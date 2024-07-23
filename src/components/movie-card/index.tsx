@@ -1,10 +1,9 @@
-import { useContext } from "react";
-
-import { MoviesContext } from "../../modules/movies/context";
-import { Movie, MoviesContextType } from "../../modules/movies/types";
+import { Movie } from "../../modules/movies/types";
 
 import InfoIcon from "../icons/info";
 import StarIcon from "../icons/star";
+
+import genres from "../../data/genres.json";
 
 import styles from "./styles.module.css";
 
@@ -15,7 +14,6 @@ type Props = {
 };
 
 export default function MovieCard({ movie }: Props) {
-  const { genres } = useContext(MoviesContext) as MoviesContextType;
   const movieGenres = genres.filter((genre) =>
     movie.genre_ids.includes(genre.id)
   );

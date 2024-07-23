@@ -3,11 +3,11 @@ import { useState } from "react";
 import SearchIcon from "../icons/search";
 import styles from "./styles.module.css";
 
-import { useFilterMovies } from "../../modules/movies/hooks";
+import { useSearchMovies } from "../../modules/movies/hooks";
 
 export default function SearchInput() {
   const [searchValue, setSearchValue] = useState("");
-  const { filter } = useFilterMovies();
+  const { filter } = useSearchMovies();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);

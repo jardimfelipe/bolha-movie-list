@@ -1,17 +1,19 @@
 import { createContext, useState } from "react";
 
-import { Genres, Movie, MoviesContextType } from "./types";
+import { Category, Genre, Movie, MoviesContextType } from "./types";
 
-import popular from "../../data/popular.json";
-import jGenres from "../../data/genres.json";
+import topRated from "../../data/top-rated.json";
 
 export const MoviesContext = createContext<MoviesContextType | null>(null);
 
 const MoviesContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [movies, setMovies] = useState<Movie[]>(popular);
-  const [genres, setGenres] = useState<Genres[]>(jGenres);
+  const [movies, setMovies] = useState<Movie[]>(topRated);
+  const [genre, setGenre] = useState<Genre | null>(null);
+  const [category, setCategory] = useState<Category>("top_rated");
   return (
-    <MoviesContext.Provider value={{ movies, genres, setMovies, setGenres }}>
+    <MoviesContext.Provider
+      value={{ movies, genre, category, setMovies, setGenre, setCategory }}
+    >
       {children}
     </MoviesContext.Provider>
   );
