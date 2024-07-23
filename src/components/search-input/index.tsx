@@ -1,14 +1,13 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 import SearchIcon from "../icons/search";
 import styles from "./styles.module.css";
 
-import { MoviesContext } from "../../modules/movies/context";
-import { Movie, MoviesContextType } from "../../modules/movies/types";
+import { useFilterMovies } from "../../modules/movies/hooks";
 
 export default function SearchInput() {
   const [searchValue, setSearchValue] = useState("");
-  const { movies, setMovies } = useContext(MoviesContext) as MoviesContextType;
+  const { filter } = useFilterMovies();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -16,10 +15,8 @@ export default function SearchInput() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const filteredMovies = movies.filter((movie: Movie) =>
-      movie.title.toLowerCase().includes(searchValue.toLowerCase())
-    );
-    setMovies(filteredMovies);
+    console.log("searchValue", searchValue);
+    filter(searchValue);
   };
   return (
     <form onSubmit={handleSubmit}>
