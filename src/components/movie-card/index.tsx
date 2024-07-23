@@ -1,4 +1,8 @@
-import { Movie } from "../../modules/movies/types";
+import { useContext } from "react";
+
+import { MoviesContext } from "../../modules/movies/context";
+import { Movie, MoviesContextType } from "../../modules/movies/types";
+
 import InfoIcon from "../icons/info";
 import StarIcon from "../icons/star";
 
@@ -11,11 +15,15 @@ type Props = {
 };
 
 export default function MovieCard({ movie }: Props) {
+  const { genres } = useContext(MoviesContext) as MoviesContextType;
+  const movieGenres = genres.filter((genre) =>
+    movie.genre_ids.includes(genre.id)
+  );
   return (
     <div>
       <div className={styles.container}>
         <img src={assetsUrl + movie.poster_path} alt={movie.title} />
-        <span className={styles.rating}>
+        <span className={styles.badge}>
           <StarIcon />
           {movie.vote_average.toFixed(1)}
         </span>
@@ -24,7 +32,12 @@ export default function MovieCard({ movie }: Props) {
         </button>
       </div>
 
-      <span>{movie.title}</span>
+      <span className={styles.movieName}>{movie.title}</span>
+      <ul className={styles.genres}>
+        {movieGenres.map((genre) => (
+          <li key={genre.id}>{genre.name}</li>
+        ))}
+      </ul>
     </div>
   );
 }
