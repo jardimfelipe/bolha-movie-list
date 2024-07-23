@@ -15,7 +15,6 @@ export default function SearchInput() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("searchValue", searchValue);
     filter(searchValue);
   };
   return (
