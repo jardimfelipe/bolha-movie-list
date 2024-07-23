@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { Genre, Movie, MoviesContextType } from "./types";
+import { Category, Genre, Movie, MoviesContextType } from "./types";
 import { MoviesContext } from "./context";
 
 import popular from "../../data/popular.json";
@@ -16,12 +16,13 @@ const movies = {
 }
 
 export const useSearchMovies = () => {
-    const {category, setMovies} = useContext(MoviesContext) as MoviesContextType;
+    const {category, setSearch, setMovies} = useContext(MoviesContext) as MoviesContextType;
   function filter(searchValue: string) {
     const filtered = movies[category].filter((movie: Movie) =>
       movie.title.toLowerCase().includes(searchValue.toLowerCase())
     );
     setMovies(filtered);
+    setSearch(searchValue);
   }
 
   return {filter}
@@ -38,4 +39,25 @@ export const useFilterByGenre = () => {
   }
 
   return {filter}
+}
+
+export const useToggleCategory = () => {
+  const {genre, search, setMovies, setCategory } = useContext(MoviesContext) as MoviesContextType;
+  function toggleCategory(selectedCategory: Category) {
+    setCategory(selectedCategory);
+    let selectedMovies = movies[selectedCategory]
+    if (genre) {
+      selectedMovies = genre.id === 0 ? selectedMovies : selectedMovies.filter((movie: Movie) =>
+        movie.genre_ids.includes(genre.id)
+      );
+    }
+     if (search) {
+      selectedMovies = selectedMovies.filter((movie: Movie) =>
+        movie.title.toLowerCase().includes(search.toLowerCase())
+      );
+    } 
+    setMovies(selectedMovies);
+  }
+
+  return {toggleCategory}
 }

@@ -2,9 +2,11 @@ export type MoviesContextType = {
   movies: Movie[];
   genre: Genre | null;
   category: Category; 
+  search: string;
   setMovies: (movies: Movie[]) => void;
   setGenre: (genre: Genre) => void;
   setCategory: (category: Category) => void;
+  setSearch: (search: string) => void;
 };
 
 export type Movie = {
@@ -30,3 +32,10 @@ export type Genre = {
 }
 
 export type Category = "top_rated" | "upcoming" | "now_playing" | "popular";
+
+export const categoryLabels: Record<Category, string> = {
+  top_rated: "Top Rated",
+  upcoming: "Upcoming",
+  now_playing: "Now Playing",
+  popular: "Popular",
+};

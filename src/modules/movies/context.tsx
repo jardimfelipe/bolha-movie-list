@@ -10,9 +10,19 @@ const MoviesContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [movies, setMovies] = useState<Movie[]>(topRated);
   const [genre, setGenre] = useState<Genre | null>(null);
   const [category, setCategory] = useState<Category>("top_rated");
+  const [search, setSearch] = useState<string>("");
   return (
     <MoviesContext.Provider
-      value={{ movies, genre, category, setMovies, setGenre, setCategory }}
+      value={{
+        movies,
+        genre,
+        category,
+        search,
+        setSearch,
+        setMovies,
+        setGenre,
+        setCategory,
+      }}
     >
       {children}
     </MoviesContext.Provider>

@@ -7,8 +7,6 @@
 }
 
 .select {
-    appearance: none;
-    width: 100%;
     font-size: 1.15rem;
     padding: 0.675em 4em 0.675em 1em;
     background-color: var(--bg-color);
