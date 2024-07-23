@@ -1,7 +1,13 @@
+import { useContext } from "react";
 import { useToggleCategory } from "../../modules/movies/hooks";
-import { Category, categoryLabels } from "../../modules/movies/types";
+import {
+  Category,
+  categoryLabels,
+  MoviesContextType,
+} from "../../modules/movies/types";
 
 import styles from "./styles.module.css";
+import { MoviesContext } from "../../modules/movies/context";
 
 const categoryOptions: Category[] = [
   "top_rated",
@@ -12,9 +18,11 @@ const categoryOptions: Category[] = [
 
 export default function ToggleCategory() {
   const { toggleCategory } = useToggleCategory();
+  const { category: selectedCategory } = useContext(
+    MoviesContext
+  ) as MoviesContextType;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedCategory = e.target.value;
+  const handleChange = (selectedCategory: Category) => {
     if (!selectedCategory) {
       toggleCategory("top_rated");
       return;
@@ -31,7 +39,8 @@ export default function ToggleCategory() {
             type="radio"
             name="category"
             id={category}
-            onChange={handleChange}
+            onChange={() => handleChange(category)}
+            checked={category === selectedCategory}
           />
           <label className={styles.label} htmlFor={category}>
             {categoryLabels[category]}
