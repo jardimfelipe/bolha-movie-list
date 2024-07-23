@@ -11,7 +11,7 @@
     opacity: 0;
     transition: all 0.3s ease-in-out;
     pointer-events: none;
-    z-index: 2
+    z-index: 2;
 }
 
 .header {
@@ -114,3 +114,10 @@
 .body {
     padding: 1rem
 }
+
+@media (max-width: 480px) {
+    .content {
+        width: 100%;
+        margin: 0.5rem;
+    }
+  }
