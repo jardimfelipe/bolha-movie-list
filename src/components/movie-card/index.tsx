@@ -1,11 +1,14 @@
+import { useState } from "react";
+
 import { Movie } from "../../modules/movies/types";
 
 import InfoIcon from "../icons/info";
 import StarIcon from "../icons/star";
 
-import genres from "../../data/genres.json";
+import MovieDetails from "../movie-details";
 
 import styles from "./styles.module.css";
+import { getMovieGenres } from "../../modules/movies/utils";
 
 const assetsUrl = "https://www.themoviedb.org/t/p/w220_and_h330_face/";
 
@@ -14,9 +17,16 @@ type Props = {
 };
 
 export default function MovieCard({ movie }: Props) {
-  const movieGenres = genres.filter((genre) =>
-    movie.genre_ids.includes(genre.id)
-  );
+  const [open, setOpen] = useState(false);
+  const movieGenres = getMovieGenres(movie);
+
+  const handleModalClose = () => {
+    setOpen(false);
+  };
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
   return (
     <div>
       <div className={styles.container}>
@@ -25,7 +35,7 @@ export default function MovieCard({ movie }: Props) {
           <StarIcon />
           {movie.vote_average.toFixed(1)}
         </span>
-        <button className={styles.button}>
+        <button onClick={handleClick} className={styles.button}>
           <InfoIcon />
         </button>
       </div>
@@ -36,6 +46,7 @@ export default function MovieCard({ movie }: Props) {
           <li key={genre.id}>{genre.name}</li>
         ))}
       </ul>
+      <MovieDetails onClose={handleModalClose} open={open} movie={movie} />
     </div>
   );
 }
