@@ -23,10 +23,10 @@ export default function ToggleCategory() {
   };
   return (
     <div className={styles.container}>
-      {categoryOptions.map((category) => (
+      {categoryOptions.map((category, index) => (
         <>
           <input
-            key={category}
+            key={`${category}-${index}`}
             className={styles.input}
             type="radio"
             name="category"
